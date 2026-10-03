@@ -4,10 +4,12 @@ import os
 from collections.abc import Iterable
 from typing import IO, Any, BinaryIO
 
+import cs336_basics
 import numpy.typing as npt
 import torch
 from jaxtyping import Bool, Float, Int
 from torch import Tensor
+from cs336_basics.BPE_on_TinyStories import train_bpe
 
 
 def run_linear(
@@ -589,4 +591,7 @@ def run_train_bpe(
                 representing that <token1> was merged with <token2>.
                 Merges are ordered by order of creation.
     """
-    raise NotImplementedError
+    print(dir(cs336_basics.BPE_on_TinyStories))
+
+    return train_bpe(input_path, vocab_size, special_tokens)
+  
