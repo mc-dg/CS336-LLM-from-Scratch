@@ -50,8 +50,10 @@ def find_chunk_boundaries(
 
 
 ## Usage
-with open('C:\\Users\\maric\\OneDrive\\Desktop\\CS336-LLM-from-Scratch\\CS336-LLM-from-Scratch\\data\\TinyStoriesV2-GPT4-valid.txt'
-, "rb") as f:
+with open(
+    "C:\\Users\\maric\\OneDrive\\Desktop\\CS336-LLM-from-Scratch\\CS336-LLM-from-Scratch\\data\\TinyStoriesV2-GPT4-valid.txt",
+    "rb",
+) as f:
     num_processes = 4
     boundaries = find_chunk_boundaries(f, num_processes, b"<|endoftext|>")
 
