@@ -1,13 +1,25 @@
 import torch
 import torch.nn as nn
-from cs336_basics.RMSNorm import RMSNorm
-from cs336_basics.Linear import Linear
-from cs336_basics.transformer_block import transformer_block
+
 from cs336_basics.Embedding import Embedding
+from cs336_basics.Linear import Linear
+from cs336_basics.RMSNorm import RMSNorm
+from cs336_basics.transformer_block import transformer_block
+
 
 class transformer_lm(nn.Module):
-        
-    def __init__(self, d_model, num_heads, vocab_size, context_length, num_layers, d_ff, theta=None, device=None, dtype=None):
+    def __init__(
+        self,
+        d_model,
+        num_heads,
+        vocab_size,
+        context_length,
+        num_layers,
+        d_ff,
+        theta=None,
+        device=None,
+        dtype=None,
+    ):
         super().__init__()
         self.d_model = d_model
         self.num_heads = num_heads
@@ -18,7 +30,7 @@ class transformer_lm(nn.Module):
         self.theta = theta
         self.device = device
         self.dtype = dtype
-        
+
         self.embedding = Embedding(vocab_size, d_model, self.device, self.dtype)
         self.layers = []
         for i in range(self.num_layers):
@@ -33,13 +45,13 @@ class transformer_lm(nn.Module):
             )
             self.add_module(f"layers{i}", block)
             self.layers.append(block)
-            
+
         self.norm = RMSNorm(d_model)
         self.lm_head = Linear(d_model, vocab_size, self.device, self.dtype)
-            
+
     def forward(self, x, token_positions=None):
         x = self.embedding(x)
-    
+
         T = x.shape[1]
         token_positions = torch.arange(T, device=x.device)
 
